@@ -1,8 +1,8 @@
-# Segment Mark tool
+# Mark tools
 ## How to use ?
 `yarn`
 
-## run demo 
+## run example 
 `yarn dev`
 
 ## build

@@ -51,6 +51,7 @@ export class Tool {
       image: $img,
       width: $img.width,
       height: $img.height,
+      id: 'background-image'
     });
     this.konvaContextGroup.width($img.width);
     this.konvaContextGroup.height($img.height);

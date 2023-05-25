@@ -4,6 +4,7 @@ import { TFrameType, TMarkData } from '../types/FrameMark';
 import { addRectEvent } from './rectEvent';
 import Konva from 'konva';
 import { removeRectActive } from './utils';
+import { KonvaEventObject } from 'konva/lib/Node';
 
 export class FrameMark extends Tool {
   currFrameType?: TFrameType = null;
@@ -15,6 +16,13 @@ export class FrameMark extends Tool {
 
   constructor() {
     super();
+    this.konvaStage.on('mousedown touchstart', (e: KonvaEventObject<MouseEvent | TouchEvent>) => {
+      const { target } = e;
+      if (target === this.konvaBackgroundImage || this.konvaStage === target) {
+        removeRectActive(this.konvaFarmesGroup);
+        this.selectedGroup = null;
+      }
+    });
   }
 
   async beginDraw(imgSrc: string, markData: TMarkData) {
@@ -47,8 +55,8 @@ export class FrameMark extends Tool {
   toJson() {
     return this.konvaContextGroup.toJSON();
   }
-  
-  loadJson () {
+
+  loadJson() {
     // this.konvaContextGroup.
   }
 }
