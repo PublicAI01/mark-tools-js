@@ -1,3 +1,4 @@
+import { Line } from 'konva/lib/shapes/Line';
 import { Tool } from '../Tool';
 import { THandledSegmentation, TImageCategorysData, TImageData } from '../types/Segment';
 import { splitSegmentation } from '../utils/utils';
@@ -20,7 +21,7 @@ export class SegmentMark extends Tool {
   _drawImagePolygon() {
     this._foreachSegmentation((handledSeg, points, { fillColor }) => {
       const group = new Konva.Group({});
-
+      // animation line
       const stroke = new Konva.Line({
         points,
         stroke: 'rgba(255, 255, 255, 0.7)',
@@ -53,6 +54,7 @@ export class SegmentMark extends Tool {
         } else {
           anim.stop();
         }
+        this._onSelect?.(handledSeg, fillPolygon, this.imageData);
       };
 
       group.on('click tap', handleTap);
@@ -100,4 +102,6 @@ export class SegmentMark extends Tool {
       }
     }
   }
+
+  _onSelect: (handledSeg: THandledSegmentation, line: Line, imageData: TImageData) => void;
 }
